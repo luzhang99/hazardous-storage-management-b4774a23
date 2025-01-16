@@ -1,11 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SidebarProvider, Sidebar, SidebarContent, SidebarTrigger } from "@/components/ui/sidebar";
-import { BarChart, Box, ChemicalIcon, Users, AlertTriangle, Package, TrendingUp } from "lucide-react";
+import { FlaskConical, Box, Users, AlertTriangle, Package, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    toast({
+      title: "导航",
+      description: "正在跳转到对应页面...",
+    });
+  };
 
   return (
     <SidebarProvider>
@@ -15,19 +25,35 @@ const Index = () => {
             <div className="px-3 py-4">
               <h2 className="mb-4 px-4 text-lg font-semibold">危化品仓储管理系统</h2>
               <nav className="space-y-1">
-                <Button variant="ghost" className="w-full justify-start gap-2">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start gap-2"
+                  onClick={() => handleNavigation("/dashboard")}
+                >
                   <Box className="h-5 w-5" />
                   仪表盘
                 </Button>
-                <Button variant="ghost" className="w-full justify-start gap-2">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start gap-2"
+                  onClick={() => handleNavigation("/materials")}
+                >
                   <Package className="h-5 w-5" />
                   物料管理
                 </Button>
-                <Button variant="ghost" className="w-full justify-start gap-2">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start gap-2"
+                  onClick={() => handleNavigation("/users")}
+                >
                   <Users className="h-5 w-5" />
                   用户管理
                 </Button>
-                <Button variant="ghost" className="w-full justify-start gap-2">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start gap-2"
+                  onClick={() => handleNavigation("/safety")}
+                >
                   <AlertTriangle className="h-5 w-5" />
                   安全监控
                 </Button>
@@ -43,7 +69,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <Card>
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleNavigation("/inventory")}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">总物料数量</CardTitle>
                 <Package className="h-4 w-4 text-gray-500" />
@@ -54,7 +80,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleNavigation("/alerts")}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">库存预警</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-red-500" />
@@ -65,7 +91,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleNavigation("/inbound")}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">本月入库量</CardTitle>
                 <TrendingUp className="h-4 w-4 text-green-500" />
@@ -76,7 +102,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleNavigation("/users")}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium">活跃用户</CardTitle>
                 <Users className="h-4 w-4 text-blue-500" />
@@ -89,7 +115,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleNavigation("/inventory/trends")}>
               <CardHeader>
                 <CardTitle>库存趋势</CardTitle>
               </CardHeader>
@@ -100,7 +126,7 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleNavigation("/safety/monitor")}>
               <CardHeader>
                 <CardTitle>安全监控</CardTitle>
               </CardHeader>
