@@ -19,19 +19,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Search, RotateCcw, Download, Upload, Plus, Eye, Edit, Trash, Power } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-
-interface Material {
-  id: number;
-  name: string;
-  casNo: string;
-  code: string;
-  type: string;
-  isKeyMonitor: boolean;
-  status: 'normal' | 'disabled';
-}
+import AddMaterialForm from '@/components/AddMaterialForm';
 
 const MaterialsPage = () => {
   const { toast } = useToast();
+  const [showAddForm, setShowAddForm] = useState(false);
   const [materials] = useState<Material[]>([
     {
       id: 1,
@@ -68,6 +60,20 @@ const MaterialsPage = () => {
       description: `对物料 ${material.name} 执行${action}操作`,
     });
   };
+
+  if (showAddForm) {
+    return (
+      <div className="container mx-auto py-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">添加物料</h2>
+          <Button variant="outline" onClick={() => setShowAddForm(false)}>
+            返回列表
+          </Button>
+        </div>
+        <AddMaterialForm />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-6">
@@ -130,7 +136,7 @@ const MaterialsPage = () => {
           </Button>
         </div>
 
-        <Button className="gap-2">
+        <Button className="gap-2" onClick={() => setShowAddForm(true)}>
           <Plus className="h-4 w-4" />
           添加物料
         </Button>
